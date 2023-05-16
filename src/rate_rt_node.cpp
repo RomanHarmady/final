@@ -34,6 +34,10 @@ public:
 private:
   void publish_message()
   {
+
+    endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime);
+    message.data = duration.count();
     startTime = std::chrono::high_resolution_clock::now();
     
     if (pos>3010){
@@ -49,9 +53,7 @@ private:
     else mess = 0;
 
   
-     endTime = std::chrono::high_resolution_clock::now();
-     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime);
-     message.data = duration.count();
+     
 
 
     publisher_->publish(message);
